@@ -10,6 +10,8 @@ def profile_to_json(profile):
             'profile_img': profile.profile_img,
             'about_me': profile.about_me,
             'resume': profile.resume,
+            'created_at': profile.created_at.isoformat(),
+            'updated_at': profile.updated_at.isoformat(),
             'enabled_sections': profile.enabled_sections,
             'phone': phone_to_json(profile.phone)
         }

@@ -1,4 +1,13 @@
-from mongoengine import IntField, EmbeddedDocument, EmbeddedDocumentField, EmailField, ListField, StringField
+from datetime import datetime
+from mongoengine import (
+    IntField,
+    EmbeddedDocument,
+    EmbeddedDocumentField,
+    EmailField,
+    ListField,
+    StringField,
+    DateTimeField
+)
 
 from db import mongo_db
 
@@ -25,6 +34,8 @@ class ProfileModel(mongo_db.Document):
     profile_img = StringField(default="")
     about_me = StringField(default="")
     resume = StringField(default="")
+    created_at = DateTimeField(default=datetime.now)
+    updated_at = DateTimeField(default=datetime.now)
     enabled_sections = ListField()
     phone = EmbeddedDocumentField(PhoneModel, default=PhoneModel)
 

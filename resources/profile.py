@@ -18,6 +18,8 @@ class Profile(Resource):
         return {"message": "username and auth token user are two different users, "
                            "Please pass the same user's auth token"}, 400
 
+    # def put(self, name):
+
 
 def get_profile(username):
     return ProfileModel.objects(username=username).order_by('-id').first()

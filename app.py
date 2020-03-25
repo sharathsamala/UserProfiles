@@ -13,6 +13,7 @@ from resources.profile import Profile
 app = Flask(__name__)
 
 # User Auth DB configs
+app.config['JWT_AUTH_URL_RULE'] = "/login"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vffnuboz:L9M6YZJIU8ufYysPS-SmiqlIm-nwfN6g@drona.db.elephantsql.com:5432/vffnuboz'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
@@ -39,11 +40,6 @@ api.add_resource(Profile, "/profile/<string:username>")
 
 
 if __name__ == '__main__':
-    try:
-        os.remove("./data.db")
-    except:
-        print("Unable to remove the temp db file")
-
     db.init_app(app)
     mongo_db.init_app(app)
     app.run(port=5000, debug=True)
