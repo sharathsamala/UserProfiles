@@ -13,7 +13,7 @@ from resources.profile import Profile
 app = Flask(__name__)
 
 # User Auth DB configs
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vffnuboz:L9M6YZJIU8ufYysPS-SmiqlIm-nwfN6g@drona.db.elephantsql.com:5432/vffnuboz'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'jose'

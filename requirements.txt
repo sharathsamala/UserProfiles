@@ -7,3 +7,4 @@ Flask-PyMongo
 flask-mongoengine
 mongoengine
 werkzeug
+psycopg2==2.7.5
