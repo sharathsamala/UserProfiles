@@ -6,3 +6,4 @@ Flask-MongoAlchemy
 Flask-PyMongo
 flask-mongoengine
 mongoengine
+werkzeug

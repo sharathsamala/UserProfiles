@@ -18,7 +18,10 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'jose'
 
 # Mongo db configs
-app.config['MONGOALCHEMY_DATABASE'] = 'UserProfiles'
+app.config["MONGODB_SETTINGS"] = {
+    "DB": "UserProfiles",
+    "host": "mongodb+srv://admin:admin123@cloud1-dhhxk.mongodb.net/UserProfiles?retryWrites=true&w=majority"
+}
 api = Api(app)
 
 
@@ -35,7 +38,7 @@ if __name__ == '__main__':
     try:
         os.remove("/Users/sharathsamala/Desktop/all/Projects/pythonProjects/UserProfiles/data.db")
     except:
-        pass
+        print("Unable to remove the temp db file")
 
     db.init_app(app)
     mongo_db.init_app(app)
