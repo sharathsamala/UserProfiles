@@ -7,6 +7,7 @@ from flask_jwt import JWT
 from db import db, mongo_db
 from security import authenticate, identity
 from resources.user import UserRegister
+from resources.profile import Profile
 
 
 app = Flask(__name__)
@@ -31,12 +32,15 @@ def create_tables():
 
 
 jwt = JWT(app, authenticate, identity)  # /auth
+
+
 api.add_resource(UserRegister, "/register")
+api.add_resource(Profile, "/profile/<string:username>")
 
 
 if __name__ == '__main__':
     try:
-        os.remove("/Users/sharathsamala/Desktop/all/Projects/pythonProjects/UserProfiles/data.db")
+        os.remove("./data.db")
     except:
         print("Unable to remove the temp db file")
 

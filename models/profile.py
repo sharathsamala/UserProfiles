@@ -1,8 +1,4 @@
-
-from mongoengine import IntField, EmbeddedDocument, BooleanField, EmailField, ListField
-from mongoengine import DynamicEmbeddedDocument, EmbeddedDocumentField
-from mongoengine import EmbeddedDocumentListField
-from mongoengine import StringField, DateTimeField
+from mongoengine import IntField, EmbeddedDocument, EmbeddedDocumentField, EmailField, ListField, StringField
 
 from db import mongo_db
 
@@ -15,18 +11,12 @@ class PhoneModel(EmbeddedDocument):
     primary = IntField(min_value=10, max_value=10)
     secondary = IntField(min_value=8, max_value=10)
 
-    def json(self):
-        return {
-            'country_code': self.country_code,
-            'primary': self.primary,
-            'secondary': self.secondary
-        }
-
 
 class ProfileModel(mongo_db.Document):
     """
     Model for basic profile details
     """
+    meta = {'collection': 'profiles'}
 
     username = StringField(required=True)
     first_name = StringField(required=True)
@@ -37,6 +27,8 @@ class ProfileModel(mongo_db.Document):
     resume = StringField(default="")
     enabled_sections = ListField()
     phone = EmbeddedDocumentField(PhoneModel, default=PhoneModel)
+
+
 
 
 

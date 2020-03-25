@@ -2,6 +2,8 @@ from flask_restful import Resource, reqparse
 from models.user import UserModel
 from models.profile import ProfileModel
 
+from resources.profile import get_profile
+
 from traceback import format_exc
 
 
@@ -32,11 +34,14 @@ class UserRegister(Resource):
         user = UserModel(**data)
         user.save_to_db()
         try:
-            profile = ProfileModel()
-            profile.username = data.get('username')
-            profile.first_name = data.get('username')
-            profile.save()
-            print("Successfully created the basic profile")
+            if not get_profile(data.get('username')):
+                profile = ProfileModel()
+                profile.username = data.get('username')
+                profile.first_name = data.get('username')
+                profile.save()
+                print("Successfully created the basic profile")
+            else:
+                print("Profile already exists, Skipping the basic profile creation")
         except:
             print(format_exc())
             print("ERROR: Unable to create the basic profile data")
