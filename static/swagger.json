@@ -1,0 +1,208 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "User Proiles Api doc",
+    "version": "1.0",
+    "title": "UserProiles-Api",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User Auth and Registration",
+      "description": "Endpoints for user registration and authentication"
+    },
+    {
+      "name": "Profiles",
+      "description": "Endpoints for managing profile data"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "User Auth and Registration"
+        ],
+        "summary": "user registration",
+        "requestBody": {
+          "description": "User registration post object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userRequestBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/registerResponseBody"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "User Auth and Registration"
+        ],
+        "summary": "user authentication",
+        "requestBody": {
+          "description": "User authentication post object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userRequestBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/loginResponseBody"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/profile/{username}": {
+      "get": {
+        "summary": "Get profile data",
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/components/schemas/username"
+            }
+          }
+        ],
+        "tags": [
+          "Profiles"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/profileResponseBody"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "jwtAuth": {
+        "bearerFormat": "JWT",
+        "scheme": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "username": {
+        "properties": {
+          "username": {
+            "type": "string"
+          }
+        }
+      },
+      "userRequestBody": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "format": "string"
+          },
+          "password": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "registerResponseBody": {
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "loginResponseBody": {
+        "properties": {
+          "access_token": {
+            "type": "string"
+          }
+        }
+      },
+      "profileResponseBody": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "format": "string"
+          },
+          "first_name": {
+            "type": "string",
+            "format": "string"
+          },
+          "last_name": {
+            "type": "string",
+            "format": "string"
+          },
+          "profile_img": {
+            "type": "string",
+            "format": "string"
+          },
+          "about_me": {
+            "type": "string",
+            "format": "string"
+          },
+          "resume": {
+            "type": "string",
+            "format": "string"
+          },
+          "email_id": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      }
+    }
+  }
+}

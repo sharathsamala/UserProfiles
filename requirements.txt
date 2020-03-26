@@ -8,3 +8,4 @@ flask-mongoengine
 mongoengine
 werkzeug
 psycopg2==2.7.5
+flask_swagger_ui
